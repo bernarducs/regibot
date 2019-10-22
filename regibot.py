@@ -28,8 +28,9 @@ def regibot_run():
             # api.update_status(tweet)
         except tweepy.error.TweepError as e:
             print(e)
+            if e[0]['code'] == 187:
+                dao.set_log(song_number, verse_number, verses_total)  # updating log
         finally:
-            dao.set_log(song_number, verse_number, verses_total)  # updating log
             get_delay()
 
         # external link
