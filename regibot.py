@@ -26,12 +26,11 @@ def regibot_run():
             tweet = '{} {}'.format(verse, get_emoji())
             print(tweet, get_now())
             # api.update_status(tweet)
+        except tweepy.error.TweepError as e:
+            print(e)
+        finally:
             dao.set_log(song_number, verse_number, verses_total)  # updating log
             get_delay()
-        except tweepy.error.TweepError as e:
-            if e[0]['code'] == 187:
-                dao.set_log(song_number, verse_number, verses_total)
-                get_delay()
 
         # external link
         if verse_number == verses_total:
