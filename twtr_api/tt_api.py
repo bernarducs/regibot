@@ -1,9 +1,14 @@
 import tweepy
+from configparser import ConfigParser
 
-CONSUMER_KEY='CONSUMER_KEY'
-CONSUMER_SECRET='CONSUMER_SECRET'
-ACCESS_TOKEN='ACCESS_TOKEN'
-ACCESS_TOKEN_SECRET='ACCESS_TOKEN_SECRET'
+config = ConfigParser()
+config.read('keys.ini')
+keys = config['DEFAULT']
+
+CONSUMER_KEY=keys['CONSUMER_KEY']
+CONSUMER_SECRET=keys['CONSUMER_SECRET']
+ACCESS_TOKEN=keys['ACCESS_TOKEN']
+ACCESS_TOKEN_SECRET=keys['ACCESS_TOKEN_SECRET']
 
 
 def twitter_conexao():
