@@ -9,9 +9,10 @@ api = tt_api.twitter_conexao()
 def regibot_run():
     while True:
         song_number, song, verse_number, verses_total, verse = dao.update()
-        print('song number: {}, song:{},verse_number: {},'
+        '''print('song number: {}, song:{},verse_number: {},'
               'verses_total: {},'
               'verse: {}'.format(song_number, song, verse_number, verses_total, verse))
+        '''
         spotify_dict = dao.get_spotify_links()  # return dict of external link
 
         # tweet intro
@@ -21,11 +22,12 @@ def regibot_run():
             # api.update_status(tweet)
             get_delay()
 
-        # tweeting  verses
+        # tweeting verses
         try:
             tweet = '{} {}'.format(verse, get_emoji())
             print(tweet, get_now())
             # api.update_status(tweet)
+            dao.set_log(song_number, verse_number, verses_total)
         except tweepy.error.TweepError as e:
             print(e)
             if e[0]['code'] == 187:
@@ -39,6 +41,7 @@ def regibot_run():
             print(tweet, get_now())
             # api.update_status(tweet)
             get_delay()
+
 
 if __name__ == '__main__':
     regibot_run()

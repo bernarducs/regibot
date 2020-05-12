@@ -2,7 +2,7 @@ import time
 from random import choice
 from datetime import datetime
 
-DELAY = 60 * 60 * 3
+DELAY = 10* 60 * 3
 
 
 def get_delay():
@@ -21,4 +21,4 @@ def get_emoji():
 
 def get_now():
     now = datetime.now()
-    print('{}/{}/{} {}:{}:{}'.format(now.day, now.month, now.year, now.hour, now.minute, now.second))
+    return '{}/{}/{} {}:{}:{}'.format(now.day, now.month, now.year, now.hour, now.minute, now.second)

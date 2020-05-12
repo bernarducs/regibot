@@ -2,7 +2,7 @@ import tweepy
 from configparser import ConfigParser
 
 config = ConfigParser()
-config.read('keys.ini')
+config.read(r'keys.ini')
 keys = config['DEFAULT']
 
 CONSUMER_KEY=keys['CONSUMER_KEY']

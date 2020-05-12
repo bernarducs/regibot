@@ -42,7 +42,7 @@ def get_files_list():
 
 
 def get_verses(song_file):
-    with open(SONG_FOLDER + song_file, 'r') as f:
+    with open(SONG_FOLDER + song_file, 'r', encoding='latin-1') as f:
         verses_list = list()
         for line in f:
             verses_list.append(line.strip('\n'))
