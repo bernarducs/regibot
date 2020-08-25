@@ -24,7 +24,7 @@ def update():
     with open('log/log.txt', 'r') as f:
         log = eval(f.read())
     song_number, verse_number = log['song'], log['verse']
-
+    song_number = 0 if song_number >= 65 else song_number
     files_list = get_files_list()
     file = files_list[song_number]
     song = file.strip('.txt')
