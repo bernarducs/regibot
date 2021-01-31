@@ -1,0 +1,1 @@
+[['Você disse que voltava', 'E nunca mais voltou', 'Você disse que me amava', 'Mas sozinho me deixou'], ['Você disse tanta coisa', 'Mas tão depressa esqueceu', 'E na hora da partida', 'Quem chorou fui eu'], ['Hoje eu tento não pensar mais em você', 'Faço tudo pra poder lhe esquecer', 'Mas o amor que eu sinto é mais forte que eu', 'Porque', 'Ainda amo você']]
