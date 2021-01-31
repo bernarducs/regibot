@@ -1,4 +1,9 @@
 # my files
+.ve/
+.idea/
+.gitignore
+/scrapy_songs
+playing.py
 keys.ini
 
 # Byte-compiled / optimized / DLL files

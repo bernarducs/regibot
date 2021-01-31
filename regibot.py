@@ -1,47 +1,39 @@
-from dao import dao
-from utils import get_emoji, get_delay, get_now
+"""
+arquivo principal que envia tuítes pela api
+"""
+
 import tweepy
+
 from twtr_api import tt_api
+
+from controllers.lyrics import current_song_and_verse
+from controllers.spotify import spotify_link
+from utils.utils import get_emoji, get_delay, CHIFRE
 
 api = tt_api.twitter_conexao()
 
+while True:
 
-def regibot_run():
-    while True:
-        song_number, song, verse_number, verses_total, verse = dao.update()
-        '''print('song number: {}, song:{},verse_number: {},'
-              'verses_total: {},'
-              'verse: {}'.format(song_number, song, verse_number, verses_total, verse))
-        '''
-        spotify_dict = dao.get_spotify_links()  # return dict of external link
+    verse, song, new_song, last_verse = current_song_and_verse()
+    if new_song:
+        intro_txt = f"Hoje irei tocar {song} \nSe liga aí, bicho! {CHIFRE}"
+        print(intro_txt, '\n')
+        api.update_status(intro_txt)
+        get_delay()
 
-        # tweet intro
-        if verse_number == 0:
-            tweet = "Hoje eu irei cantar '{}'. Se liga aí, bicho!".format(song)
-            print(tweet, get_now())
-            # api.update_status(tweet)
-            get_delay()
-
-        # tweeting verses
+    if verse:
+        verse_txt = f"{verse} {get_emoji()}"
+        print(verse_txt, '\n')
         try:
-            tweet = '{} {}'.format(verse, get_emoji())
-            print(tweet, get_now())
-            # api.update_status(tweet)
-            dao.set_log(song_number, verse_number, verses_total)
+            api.update_status(verse_txt)
         except tweepy.error.TweepError as e:
             print(e)
-            if e[0]['code'] == 187:
-                dao.set_log(song_number, verse_number, verses_total)  # updating log
-        finally:
+        get_delay()
+
+    if last_verse:
+        link = spotify_link(song)
+        if link:
+            spfy_txt = f"Ouça {song} em {link} \n{CHIFRE} @reginaldorossi"
+            print(spfy_txt, '\n')
+            api.update_status(spfy_txt)
             get_delay()
-
-        # external link
-        if verse_number == verses_total:
-            tweet = "Ouça '{}' em: {}".format(song, spotify_dict[song].strip("\""))
-            print(tweet, get_now())
-            # api.update_status(tweet)
-            get_delay()
-
-
-if __name__ == '__main__':
-    regibot_run()
