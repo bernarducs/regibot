@@ -2,7 +2,7 @@ import time
 from random import choice
 from datetime import datetime
 
-DELAY = 1.5
+DELAY = 60 * 60 * 5
 
 EMOJIS = [['🎶'], ['🎵'], ['🎵🎶'], ['🎶🎵'], ['🎵🎵'],
           ['🎶🎶'], ['🎼'], ['🎼🎵'], ['🎸'], ['🎸🎼'],
