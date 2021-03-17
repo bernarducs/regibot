@@ -8,6 +8,7 @@ from twtr_api import tt_api
 
 from controllers.lyrics import current_song_and_verse
 from controllers.spotify import spotify_link
+from controllers.albums import album_of_day
 from utils.utils import get_emoji, get_delay, CHIFRE
 
 api = tt_api.twitter_conexao()
@@ -37,3 +38,9 @@ while True:
             print(spfy_txt, '\n')
             api.update_status(spfy_txt)
             get_delay()
+
+    message, album_pic = album_of_day()
+    if message:
+        print(message, album_pic)
+        api.update_with_media(album_pic, message)
+        get_delay()
