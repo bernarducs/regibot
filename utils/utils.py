@@ -21,5 +21,5 @@ def get_emoji():
 
 
 def get_now():
-    now = datetime.now()
-    return '{}/{}/{} {}:{}:{}'.format(now.day, now.month, now.year, now.hour, now.minute, now.second)
+    now = datetime.utcnow()
+    return now.strftime('%Y-%m-%d %H:%M:%S')
