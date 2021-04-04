@@ -3,6 +3,7 @@
 .idea/
 .gitignore
 /scrapy_songs
+/data/images
 playing.py
 keys.ini
 
