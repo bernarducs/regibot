@@ -9,6 +9,7 @@ from twtr_api import tt_api
 from controllers.lyrics import song_and_verse
 from controllers.spotify import spotify_link
 from controllers.albums import album_of_day
+from controllers.videos import video_song
 from utils.utils import get_emoji, get_delay, get_now, CHIFRE
 
 api = tt_api.twitter_conexao()
@@ -40,8 +41,19 @@ while True:
             api.update_status(spfy_txt)
             get_delay()
 
+        video = video_song(song)
+        if video:
+            media_id = video["media"].media_id
+            media_yt_link = video["link"]
+            vid_twt = api.update_status(status=f"{song} #reginaldoRossi",
+                                        media_ids=[media_id])
+            api.update_status(status=f"Veja o vídeo completo aqui: "
+                                     f"{media_yt_link}",
+                              in_reply_to_status_id=vid_twt.id)
+        get_delay()
+
     message, album_pic = album_of_day()
     if message:
         print(message, album_pic)
-        api.update_with_media(album_pic, message)
+        api.update_status_with_media(status=message, filename=album_pic)
         get_delay()
