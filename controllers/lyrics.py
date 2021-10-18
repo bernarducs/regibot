@@ -2,12 +2,54 @@ import os
 from random import choice
 from ast import literal_eval
 
+FILE_PATH = 'log/log.txt'
 
-def current_song_and_verse():
+
+def read_log():
+    with open(FILE_PATH, 'r') as file_in:
+        log = literal_eval(file_in.read())
+    return log['song'], log['verse_number']
+
+
+def write_log(song, verse_number, last_verse):
+    if last_verse:
+        song = song_picker()
+        verse_number = 0
+    else:
+        verse_number += 1
+
+    dic = {'song': song, 'verse_number': verse_number}
+    result = str(dic)
+    with open(FILE_PATH, 'w') as file_out:
+        file_out.write(result)
+    return result
+
+
+def song_and_verse():
     """
     get current song, verse and if is a new song or last verse
     update its status writing a log txt file
     :return: str, str, bool, bool
+    """
+    first_verse, last_verse = False, False
+
+    song, verse_number = read_log()
+    verses = get_verses(song)
+    verse = verses[verse_number]
+
+    # check if is it either first or last verse
+    if verse_number == 0:
+        first_verse = True
+    elif verse_number == len(verses) - 1:
+        last_verse = True
+
+    write_log(song, verse_number, last_verse)
+    return verse, song, first_verse, last_verse
+
+
+def current_song_and_verse():
+    """
+    deprecated
     """
 
     first_verse, last_verse = False, False
