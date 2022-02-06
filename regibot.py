@@ -29,7 +29,7 @@ while True:
         print(verse_txt, '\n')
         try:
             api.update_status(verse_txt)
-        except tweepy.error.TweepError as e:
+        except tweepy.errors.TweepyException as e:
             print(e)
         get_delay()
 
