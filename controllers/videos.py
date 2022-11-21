@@ -2,6 +2,7 @@ from time import sleep
 from re import findall
 from youtubesearchpython import VideosSearch, CustomSearch, VideoSortOrder
 from pytube import YouTube
+from pytube.exceptions import RegexMatchError
 from moviepy.editor import VideoFileClip
 from moviepy.video.fx.all import fadein, fadeout
 from moviepy.audio.fx.all import audio_fadein, audio_fadeout
@@ -64,7 +65,12 @@ def video_song(song_name):
     if not link:
         return False
 
-    yt = YouTube(link)
+    try:
+        yt = YouTube(link)
+    except RegexMatchError as e:
+        print(e)
+        return False
+
     input_video = "data/videos/clip.mp4"
     output_video = "data/videos/clip2.mp4"
 
